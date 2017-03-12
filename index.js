@@ -53,27 +53,23 @@ EdiplugAccessory.prototype.setState = function(state, callback) {
 
   this.log("Set state to %s", ediState);
 
-var myXMLText = '<?xml version="1.0" encoding="utf-8"?><SMARTPLUG id="edimax"><CMD id="setup"><Device.System.Power.State>'+ ediState +'</Device.System.Power.State></CMD></SMARTPLUG>';
+  var myXMLText = '<?xml version="1.0" encoding="utf-8"?><SMARTPLUG id="edimax"><CMD id="setup"><Device.System.Power.State>'+ ediState +'</Device.System.Power.State></CMD></SMARTPLUG>';
   request.post({
-    headers: { "content-type": "application/xml",  // <--Very important!!!
-    },
-    body: myXMLText,
-    url: "http://"+this.user+":"+this.pw+"@"+this.ip+":10000/smartplug.cgi",
+  	headers: { "content-type": "application/xml",  // <--Very important!!!
+    	},
+    	body: myXMLText,
+    	url: "http://"+this.user+":"+this.pw+"@"+this.ip+":10000/smartplug.cgi",
   }, function(err, response, body) {
 
-    if (!err && response.statusCode == 200) {
-      this.log("State change complete.");
-      
-      // we succeeded, so update the "current" state as well
-      
-      
+  if (!err && response.statusCode == 200) {
+      this.log("State change complete.");     
       callback(null); // success
-    }
-    else {
-      this.log("Error '%s' swithcing state. Response: %s", err, body);
+  }
+  else {
+      this.log("Error '%s' switching state. Response: %s", err, body);
       callback(err || new Error("Error switching state state."));
-    }
-  }.bind(this));
+  }
+ }.bind(this));
 }
 
 EdiplugAccessory.prototype.getServices = function() {
