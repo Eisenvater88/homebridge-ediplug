@@ -12,7 +12,7 @@ function EdiplugAccessory(log, config) {
   this.log = log;
   this.ip = config["ip"];
   this.user = config["user"];
-  this.pw = config["pw"]
+  this.pw = config["pw"];
   
 
  this.service = new Service.Lightbulb(this.name);
@@ -31,13 +31,13 @@ EdiplugAccessory.prototype.getState = function(callback) {
     body: myXMLText,
     url: "http://"+this.user+":"+this.pw+"@"+this.ip+":10000/smartplug.cgi",
   }, function(err, response, body) {
-	if(!err){    
-      		var result = body.replace('<?xml version="1.0" encoding="UTF8"?><SMARTPLUG id="edimax"><CMD id="get"><Device.System.Power.State>','').replace('</Device.System.Power.State></CMD></SMARTPLUG>','')
-      		this.log("Light is %s", result);
-      		var an = result == "ON";
-		callback(null,an);
-	}else{
-		this.los("Error %s", err);
+    if(!err){
+      	var result = body.replace('<?xml version="1.0" encoding="UTF8"?><SMARTPLUG id="edimax"><CMD id="get"><Device.System.Power.State>','').replace('</Device.System.Power.State></CMD></SMARTPLUG>','')
+      	this.log("Light is %s", result);
+	var an = result == "ON";
+	callback(null,an);
+     }else{
+	this.log("Error getting state from plug. Response: %s", response);	
 	}
   }.bind(this));
 }
@@ -53,7 +53,7 @@ EdiplugAccessory.prototype.setState = function(state, callback) {
 
   this.log("Set state to %s", ediState);
 
-  var myXMLText = '<?xml version="1.0" encoding="utf-8"?><SMARTPLUG id="edimax"><CMD id="setup"><Device.System.Power.State>'+ ediState +'</Device.System.Power.State></CMD></SMARTPLUG>';
+var myXMLText = '<?xml version="1.0" encoding="utf-8"?><SMARTPLUG id="edimax"><CMD id="setup"><Device.System.Power.State>'+ ediState +'</Device.System.Power.State></CMD></SMARTPLUG>';
   request.post({
     headers: { "content-type": "application/xml",  // <--Very important!!!
     },
@@ -70,8 +70,8 @@ EdiplugAccessory.prototype.setState = function(state, callback) {
       callback(null); // success
     }
     else {
-      this.log("Error '%s' switching state. Response: %s", err, body);
-      callback(err || new Error("Error switching state"));
+      this.log("Error '%s' swithcing state. Response: %s", err, body);
+      callback(err || new Error("Error switching state state."));
     }
   }.bind(this));
 }
