@@ -13,12 +13,10 @@ function EdiplugAccessory(log, config) {
   this.ip = config["ip"];
   this.user = config["user"];
   this.pw = config["pw"]
- // this.lockID = config["lock_id"];
   
 
  this.service = new Service.Lightbulb(this.name);
-  //this.service = new Service.LockMechanism(this.name)
-  this.service
+ this.service
     .getCharacteristic(Characteristic.On)
     .on('get', this.getState.bind(this))
     .on('set', this.setState.bind(this));
@@ -33,12 +31,14 @@ EdiplugAccessory.prototype.getState = function(callback) {
     body: myXMLText,
     url: "http://"+this.user+":"+this.pw+"@"+this.ip+":10000/smartplug.cgi",
   }, function(err, response, body) {
-    
-      var result = body.replace('<?xml version="1.0" encoding="UTF8"?><SMARTPLUG id="edimax"><CMD id="get"><Device.System.Power.State>','').replace('</Device.System.Power.State></CMD></SMARTPLUG>','')
-      this.log("Light is %s", result);
-this.log("http://"+this.user+":"+this.pw+"@"+this.ip+":10000/smartplug.cgi");
-      var an = result == "ON";
-	callback(null,an);
+	if(!err){    
+      		var result = body.replace('<?xml version="1.0" encoding="UTF8"?><SMARTPLUG id="edimax"><CMD id="get"><Device.System.Power.State>','').replace('</Device.System.Power.State></CMD></SMARTPLUG>','')
+      		this.log("Light is %s", result);
+      		var an = result == "ON";
+		callback(null,an);
+	}else{
+		this.los("Error %s", err);
+	}
   }.bind(this));
 }
   
@@ -53,7 +53,7 @@ EdiplugAccessory.prototype.setState = function(state, callback) {
 
   this.log("Set state to %s", ediState);
 
-var myXMLText = '<?xml version="1.0" encoding="utf-8"?><SMARTPLUG id="edimax"><CMD id="setup"><Device.System.Power.State>'+ ediState +'</Device.System.Power.State></CMD></SMARTPLUG>';
+  var myXMLText = '<?xml version="1.0" encoding="utf-8"?><SMARTPLUG id="edimax"><CMD id="setup"><Device.System.Power.State>'+ ediState +'</Device.System.Power.State></CMD></SMARTPLUG>';
   request.post({
     headers: { "content-type": "application/xml",  // <--Very important!!!
     },
@@ -70,8 +70,8 @@ var myXMLText = '<?xml version="1.0" encoding="utf-8"?><SMARTPLUG id="edimax"><C
       callback(null); // success
     }
     else {
-      this.log("Error '%s' setting lock state. Response: %s", err, body);
-      callback(err || new Error("Error setting lock state."));
+      this.log("Error '%s' switching state. Response: %s", err, body);
+      callback(err || new Error("Error switching state"));
     }
   }.bind(this));
 }
