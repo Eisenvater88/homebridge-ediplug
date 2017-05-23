@@ -1,6 +1,6 @@
 {
   "name": "homebridge-ediplug",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "ediplug plugin for homebridge",
   "license": "ISC",
   "keywords": [
@@ -11,7 +11,7 @@
     "url": "git://github.com/Eisenvater88/homebridge-ediplug"
   },
   "bugs": {
-    "url": ""
+    "url": "https://github.com/Eisenvater88/homebridge-ediplug/issues"
   },
   "engines": {
     "node": ">=0.12.0",
