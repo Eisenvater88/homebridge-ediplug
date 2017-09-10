@@ -13,13 +13,20 @@ function EdiplugAccessory(log, config) {
   this.ip = config["ip"];
   this.user = config["user"];
   this.pw = config["pw"];
-  
-
- this.service = new Service.Lightbulb(this.name);
- this.service
-    .getCharacteristic(Characteristic.On)
-    .on('get', this.getState.bind(this))
-    .on('set', this.setState.bind(this));
+  this.service = null;
+ if(config["LightBulb"]=="t"){
+     this.service = new Service.Lightbulb(this.name);
+     this.service
+         .getCharacteristic(Characteristic.On)
+         .on('get', this.getState.bind(this))
+         .on('set', this.setState.bind(this));
+ } else {
+     this.service = new Service.Outlet(this.name);
+     this.service
+         .getCharacteristic(Characteristic.On)
+         .on('get', this.getState.bind(this))
+         .on('set', this.setState.bind(this));
+ };
 }
 
 EdiplugAccessory.prototype.getState = function(callback) {
