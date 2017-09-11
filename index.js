@@ -14,7 +14,7 @@ function EdiplugAccessory(log, config) {
   this.user = config["user"];
   this.pw = config["pw"];
   this.service = null;
- if(config["LightBulb"]=="t"){
+ if(config["lightbulb"]=="t"){
      this.service = new Service.Lightbulb(this.name);
      this.service
          .getCharacteristic(Characteristic.On)
