@@ -11,9 +11,7 @@ This is a plugin for homebridge. It is a fully-working implementation of a edipl
                 "user":"admin",
                 "pw":"1234",
                 "ip":"192.168.1.123"
-	
-	        "lightbulb":{"t" | "f"}  
-                
+		"lightbulb":{"t" | "f"}    
         }
  ]
 
