@@ -36,7 +36,12 @@ EdiplugAccessory.prototype.getState = function(callback) {
     headers: { "content-type": "application/xml",  // <--Very important!!!
     },
     body: myXMLText,
-    url: "http://"+this.user+":"+this.pw+"@"+this.ip+":10000/smartplug.cgi",
+    url: "http://"+this.ip+":10000/smartplug.cgi",
+    auth: {
+              user: this.user,
+              pass: this.pw,
+              sendImmediately: false
+    },
   }, function(err, response, body) {
     if(!err){
       	var result = body.replace('<?xml version="1.0" encoding="UTF8"?><SMARTPLUG id="edimax"><CMD id="get"><Device.System.Power.State>','').replace('</Device.System.Power.State></CMD></SMARTPLUG>','')
@@ -65,7 +70,12 @@ EdiplugAccessory.prototype.setState = function(state, callback) {
   	headers: { "content-type": "application/xml",  // <--Very important!!!
     	},
     	body: myXMLText,
-    	url: "http://"+this.user+":"+this.pw+"@"+this.ip+":10000/smartplug.cgi",
+        url: "http://"+this.ip+":10000/smartplug.cgi",
+        auth: {
+                  user: this.user,
+                  pass: this.pw,
+                  sendImmediately: false
+        },
   }, function(err, response, body) {
 
   if (!err && response.statusCode == 200) {
