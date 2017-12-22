@@ -1,6 +1,7 @@
 # homebridge-ediplug
 
 This is a plugin for homebridge. It is a fully-working implementation of a ediplug wireless socket accessory.
+Works in Version 0.5 with old firmware. Later versions of this code are designed to work with the latest firmware.
 
 ## homebridge conf example:
  "accessories": [
