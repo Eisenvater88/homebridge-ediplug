@@ -21,3 +21,6 @@ Works in Version 0.5 with old firmware. Later versions of this code are designed
 ### If "lightbulb" : "f", ediplug will be shown as a socket.
 
 This is just an example which needs to be adjusted to your setup!!
+
+## Special Thanks
+Many thanks @seasox for fixing my mistakes. I really appreciate that!!!
