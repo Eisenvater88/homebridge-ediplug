@@ -50,6 +50,7 @@ EdiplugAccessory.prototype.getState = function(callback) {
 	callback(null,an);
      }else{
 	this.log("Error getting state from plug. Response: %s", response);	
+	callback(err);
 	}
   }.bind(this));
 }
