@@ -39,7 +39,7 @@ For ediplug SP-2101W V2 the password is generated during the setup of the Smartp
 6. On your Smartphone open the EdiSmart App.
 7. On your PC connect again to your "normal" WLAN or LAN.
 8. On your Smartphone select the WLAN and password for your Smartplug. 
-9. As soon as you are requested to enter a new name for your Smartplug, start Telnet with the IP from step 1 and Port 1355 on your PC 
+9. As soon as you are requested to enter a new name for your Smartplug, start **Telnet** with the IP from step 1 and Port 1355 on your PC 
 10. On your Smartphone type in the new name for your Smartplug and press OK.
 11. Now **immediately**, and while your Smartphone is still configuring your Smartplug, type in ```nvc all``` in the Telnet session on your PC. At the end of the list a password different than "1234" should be shown. If not, again type in ```nvc all``` until the newly generated password is displayed.
 
