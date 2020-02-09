@@ -1,6 +1,6 @@
 {
   "name": "homebridge-ediplug",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "ediplug plugin for homebridge",
   "license": "ISC",
   "keywords": [
